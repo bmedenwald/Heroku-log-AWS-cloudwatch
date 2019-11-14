@@ -123,7 +123,7 @@ def handle_lambda_proxy_event(event):
         if sev not in srcapp_msgs[group_name]:
             srcapp_msgs[group_name][sev] = list()
         body = evt["message"]
-        srcapp_msgs[group_name][sev].append('[' + evt["appname"] + '] ' + evt["message"] + ' Timestamp: ' + str(evt["timestamp"]))
+        srcapp_msgs[group_name][sev].append('[' + evt["appname"] + '] ' + evt["message"] + ' Runtime: ' + str(evt["timestamp"]))
 
     for group_name, sevs in srcapp_msgs.items():
         for severity, lines in sevs.items():
