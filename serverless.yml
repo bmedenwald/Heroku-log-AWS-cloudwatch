@@ -14,6 +14,7 @@ functions:
 custom:
   pythonRequirements:
     dockerizePip: false
+    pythonBin: /usr/bin/python3
 
 plugins:
   - serverless-python-requirements
