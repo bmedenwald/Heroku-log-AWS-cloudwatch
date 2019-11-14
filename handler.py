@@ -2,6 +2,9 @@
 
 Expects messages to be framed with the syslog TCP octet counting method (https://tools.ietf.org/html/rfc6587#section-3.4.1).
 This is designed to be run as a Python3.6 lambda.
+
+Syslog format looks like the following:
+<158>1 2014-08-04T18:28:43.078581+00:00 host heroku router - at=info method=GET path="/foo" host=app-name-7277.herokuapp.com request_id=e5bb3580-44b0-46d2-aad3-185263641044 fwd="50.168.96.221" dyno=web.1 connect=0ms service=2ms status=200 bytes=415
 """
 
 import json
@@ -120,7 +123,7 @@ def handle_lambda_proxy_event(event):
         if sev not in srcapp_msgs[group_name]:
             srcapp_msgs[group_name][sev] = list()
         body = evt["message"]
-        srcapp_msgs[group_name][sev].append(str(evt["timestamp"]) + ': ' + evt["message"])
+        srcapp_msgs[group_name][sev].append(str(evt["timestamp"]) + ': [' + evt["appname"] + ']' + evt["message"])
 
     for group_name, sevs in srcapp_msgs.items():
         for severity, lines in sevs.items():
